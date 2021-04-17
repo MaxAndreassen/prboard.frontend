@@ -1,0 +1,102 @@
+<div class="card">
+  <h5 class="card-header text-center">Purchase</h5>
+  <div class="mx-4 mt-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col-6">Item</th>
+          <th scope="col-6"
+              class="text-right">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1x {{tournamentSummary?.name}} Entry</td>
+          <td class="text-right">£{{tournamentSummary?.entryFeeInPounds}}</td>
+        </tr>
+        <tr *ngIf="promo">
+          <td>Promo Discount ({{promo?.percentageOff}}%)</td>
+          <td class="text-right">- £{{promoAmount}}</td>
+        </tr>
+        <tr>
+          <td>Sales Tax (Temporary VAT substitute)</td>
+          <td class="text-right">£{{vat}}</td>
+        </tr>
+        <!-- Come back to add VAT -->
+        <tr>
+          <th scope="row">Total</th>
+          <td class="text-right">£{{!promoAmount ? tournamentSummary?.entryFeeInPounds + vat :
+            tournamentSummary?.entryFeeInPounds + vat - promoAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form id="payment-form"
+        *ngIf="!failed"
+        class="p-3">
+    <div id="card-element"
+         class="my-3">
+      <!-- Elements will create input elements here -->
+    </div>
+
+    <!-- We'll put the error messages in this element -->
+    <div id="card-errors"
+         role="alert"></div>
+    <button *ngIf="!loading && !productLoading && !paymentSucceed"
+            (click)="submit($event)"
+            [disabled]="paymentSubmitted"
+            class="w-100 btn btn-primary mt-3">Complete Purchase</button>
+
+    <button *ngIf="!loading && !productLoading && !paymentSucceed && !userCreditLoading  && enoughCredit"
+            (click)="useCredit($event)"
+            [disabled]="paymentSubmitted || !enoughCredit || creditPurchaseLoading"
+            class="w-100 btn btn-secondary mt-2">Use Credit (£{{!credit ? '0' : credit / 100}} available)</button>
+    <div *ngIf="!loading && !productLoading && !paymentSucceed">
+      <p class="text-center mb-2 mt-2"
+         style="font-size: 12px;"
+         *ngIf="applePayAvailable">Or Use Apple/Google Pay.</p>
+      <div id="payment-request-button">
+        <!-- A Stripe Element will be inserted here. -->
+      </div>
+    </div>
+    <p *ngIf="!loading && !productLoading && !paymentSucceed"
+       class="text-center mb-0 mt-2"> Payment Secured By
+      <a href="https://stripe.com/customers"
+         target="_blank">Stripe</a>
+    </p>
+    <p *ngIf="!loading && !productLoading && !paymentSucceed"
+       class="mt-0 text-center mb-2 mb-lg-0"
+       style="font-size: 8px">Stripe is used by 1000s of platforms including Zoom, Slack and GitHub</p>
+
+
+    <div *ngIf="paymentSucceed"
+         class="alert alert-success mt-3 mb-0"
+         role="alert">
+      Payment Successful
+    </div>
+    <div *ngIf="paymentSucceed && purchaseId"
+         role="alert"
+         class="text-center"
+         style=" margin-top: 1rem;">
+      <p>Your purchase identifier is
+        <b>{{purchaseId}}</b>
+      </p>
+      <p class="mb-0">Please take a copy (screenshot) of this. You'll be required to quote it if you contact support
+        about a purchase
+        issue.</p>
+    </div>
+    <div *ngIf="paymentFailed"
+         class="alert alert-danger mt-3 mb-0"
+         role="alert">
+      {{failureReason}}
+    </div>
+  </form>
+  <div *ngIf="failed && !loading && !productLoading"
+       class="alert alert-danger mx-2"
+       role="alert">
+    There appears to be an issue with this tournament at this time. Unfortunately this means you are unable to make your
+    purchase.
+  </div>
+</div>
+<app-loading-spinner *ngIf="loading || productLoading || paymentLoading"></app-loading-spinner>

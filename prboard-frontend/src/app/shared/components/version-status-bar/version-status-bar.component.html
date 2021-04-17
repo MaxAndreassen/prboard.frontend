@@ -1,0 +1,20 @@
+<div class="alert alert-info mt-0 mb-0"
+     style="border-radius: 0rem 0rem 0.25rem 0.25rem; margin: -1px;"
+     *ngIf="status === 3">
+  <h5 class="text-center mb-0">Finished</h5>
+</div>
+<div class="alert alert-info mt-0 mb-0"
+     style="border-radius: 0rem 0rem 0.25rem 0.25rem; margin: -1px;"
+     *ngIf="status === 1">
+  <h5 class="text-center mb-0">Not Started</h5>
+</div>
+<div class="alert alert-info mt-0 mb-0"
+     style="border-radius: 0rem 0rem 0.25rem 0.25rem; margin: -1px;"
+     *ngIf="status === 2">
+  <h5 class="text-center mb-0">In Progress</h5>
+</div>
+<div class="alert alert-danger mt-0 mb-0"
+     style="border-radius: 0rem 0rem 0.25rem 0.25rem; margin: -1px;"
+     *ngIf="status === 4">
+  <h5 class="text-center mb-0">Cancelled</h5>
+</div>

@@ -1,0 +1,28 @@
+@import '_variables';
+@import '_bootstrap.mixins';
+
+.repo-text {
+  margin-top: 0.5px;
+  font-size: 16px;
+
+  @media (min-width: 576px) {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+}
+
+.merge-box {
+    background-color: #efefef;
+    border: 1px solid #d8d6d6;
+    border-radius: 4px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.45rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.git-source-image {
+    width: 33.19px;
+    height: 33.19px;
+    border-radius: 20px;
+}

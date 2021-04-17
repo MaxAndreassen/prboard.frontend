@@ -1,0 +1,14 @@
+@import '~src/styles/_variables';
+@import '_bootstrap.mixins';
+
+@media (max-width: 600px) {
+    .front-logo {
+        width: 400px;
+    }
+ }
+
+ @media (max-width: 400px) {
+    .front-logo {
+        width: 280px;
+    }
+ }

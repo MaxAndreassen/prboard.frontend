@@ -1,0 +1,94 @@
+<div class="user-profile-page">
+  <div class="banner"></div>
+  <div class="container">
+    <div class="container-summary card card-body mt-4 mb-md-4">
+      <div class="card-content">
+        <!--<app-sanitized-image class="uploader-image profile-photo" *ngIf="!!profilePictureUrl" [chosenUrl]="profilePictureUrl"></app-sanitized-image>!-->
+        <div class="profile-picture shadow-sm">
+          <div class="uploader-image"
+               alt="Profile picture"
+               [style.background-image]="data?.profileUrl ? 'url(' + data?.profileUrl + ')' : 'url(assets/user.svg)'">
+          </div>
+        </div>
+        <h6 class="text-center mt-1">
+          <span class="badge badge-success"
+                *ngIf="data?.isEmailVerified">Verified</span>
+          <span class="badge badge-danger"
+                *ngIf="!data?.isEmailVerified">Not Verified</span>
+        </h6>
+      </div>
+      <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+      <!--<app-loading-spinner *ngIf="loading"></app-loading-spinner>-->
+      <div *ngIf="!loading">
+        <h3 class="name mt-2">
+          {{data?.username}}
+          <!--<app-verified-user-indicator *ngIf="model?.influencer"></app-verified-user-indicator>-->
+        </h3>
+        <p class="text-center text-muted">
+          joined {{data?.createdAt?.toLocaleDateString()}}
+          <!--<span *ngIf="model.emailAddress">| {{model.emailAddress}}</span>-->
+        </p>
+        <h6 class="text-muted text-center">{{userStats.eventsAttended}} Event{{userStats.eventsAttended == 1 ? '' :
+          's'}} Attended | {{userStats.eventsWon}} Event{{userStats.eventsWon == 1 ? '' : 's'}} Won | £{{userStats.winningsEarned}} in Winner Earnings</h6>
+        <div class="text-center">
+          <a *ngIf="affiliateUser"
+             [href]="'profile/' + affiliateUser?.uuid"
+             class="d-inline-flex mx-auto mt-2"
+             target="_blank">
+            <div class="img-thumbnail user-profile-refer d-table"
+                 [style.background-image]="affiliateUser?.profileUrl ? 'url(' + affiliateUser?.profileUrl + ')' : 'url(assets/user.svg)'">
+            </div>
+            <p class="text-left username-text-refer mb-0 d-table"
+               style="overflow: hidden;">Referred by {{affiliateUser?.username}}</p>
+          </a>
+        </div>
+        <hr>
+
+        <p class="description">{{data?.bio}}</p>
+      </div>
+      <h5 *ngIf="!!total"
+          class="mb-4 mx-1 mt-2 text-center">{{total}} Events Organised By {{data?.username}}</h5>
+      <div class="row">
+        <div *ngFor="let tournament of organisedTournaments"
+             class="col-lg-4 col-md-6 col-sm-6 col-11 mb-4 mx-auto mx-sm-0">
+          <app-card [title]="tournament?.name"
+                    [linkUrl]="'tournaments/view/' + tournament?.uuid"
+                    [officialEvent]="tournament?.officialEvent"
+                    [pictureUrl]="tournament?.coverImageUrl"
+                    [userUuid]="tournament?.organiserUuid"
+                    [username]="tournament?.organiserName"
+                    [profileUrl]="tournament?.organiserProfileUrl"
+                    [subText]="!tournament?.startDate ? 'TBC' : tournament?.startDate"
+                    info1Title="Event"
+                    [info1]="tournament?.gameName"
+                    info2Title="Prize"
+                    [info2]="'£' + tournament?.prize"
+                    info3Title="Tickets"
+                    [info3]="!tournament?.entryFeeInPounds ? 'FREE' : '£' + tournament?.entryFeeInPounds + ' (exc VAT)'"
+                    showBottom="true"
+                    buttonText="View"></app-card>
+        </div>
+      </div>
+      <nav *ngIf="!!total"
+           aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <button class="page-link px-4 disabled-link"
+                    [class.disabled-link]="currentPage === 0"
+                    [disabled]="currentPage === 0"
+                    (click)="prev()">Prev</button>
+          </li>
+          <li class="page-item active">
+            <a class="page-link">{{currentPage}}</a>
+          </li>
+          <li class="page-item">
+            <button class="page-link px-4"
+                    [class.disabled-link]="!(organisedTournaments?.length > 0)"
+                    [disabled]="!(organisedTournaments?.length > 0)"
+                    (click)="next()">Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

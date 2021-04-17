@@ -1,0 +1,199 @@
+<div class="pt-1 pt-md-1 mb-4">
+  <div class="card mobile-login">
+    <div class="card-header text-center">
+      <h2 class="mt-1">Register</h2>
+      <a *ngIf="affiliateUser" [href]="'profile/' + affiliateUser?.uuid" class="d-inline-flex"
+      target="_blank">
+        <div class="img-thumbnail user-profile d-table"
+             [style.background-image]="affiliateUser?.profileUrl ? 'url(' + affiliateUser?.profileUrl + ')' : 'url(assets/user.svg)'"></div>
+        <p class="text-left username-text mb-0 d-table"
+           style="overflow: hidden;">Referred by {{affiliateUser?.username}}</p>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-6 pr-0"
+           style="border-right: 1px solid #ccc">
+        <button class="btn btn-link w-100"
+                [class.text-dark]="!editor?.isBusiness"
+                (click)="setBusiness(false)">
+          Individual
+        </button>
+      </div>
+      <div class="col-6 pl-0">
+        <button class="btn btn-link w-100"
+                [class.text-dark]="editor?.isBusiness"
+                (click)="setBusiness(true)">
+          Business
+        </button>
+      </div>
+      <div class="col-12">
+        <hr class="mt-0">
+      </div>
+    </div>
+    <form class="mx-3 mb-3">
+      <div class="form-group">
+        <label for="emailAddress"
+               class="required-star">
+          <b>{{editor?.isBusiness ? 'Work ' : ''}}Email Address</b>
+        </label>
+        <input type="email"
+               name="email"
+               class="form-control"
+               id="emailAddress"
+               [(ngModel)]="editor.email">
+      </div>
+      <div class="form-group">
+        <label for="username"
+               class="required-star">
+          <b>Username</b>
+        </label>
+        <input type="text"
+               name="username"
+               class="form-control"
+               id="username"
+               [(ngModel)]="editor.username">
+      </div>
+      <div class="form-group"
+           *ngIf="editor?.isBusiness">
+        <label for="companyName"
+               class="required-star">
+          <b>Company Name</b>
+        </label>
+        <input type="text"
+               name="companyName"
+               class="form-control"
+               id="companyName"
+               [(ngModel)]="editor.companyName">
+      </div>
+      <div class="row"
+           *ngIf="!editor?.isBusiness">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="firstName"
+                   class="required-star">
+              <b>First Name</b>
+            </label>
+            <input type="text"
+                   name="firstName"
+                   class="form-control"
+                   id="firstName"
+                   [(ngModel)]="editor.firstName">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="lastName"
+                   class="required-star">
+              <b>Last Name</b>
+            </label>
+            <input type="text"
+                   name="lastName"
+                   class="form-control"
+                   id="lastName"
+                   [(ngModel)]="editor.lastName">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="required-star mb-0"
+               for="country">
+          <b>Country</b>
+        </label>
+        <p class="mb-2"
+           style="font-size: 11px;">We only support certain countries at this time</p>
+        <ng-select [(ngModel)]="editor.countryUuid"
+                   name="country"
+                   [disabled]="countriesLoading">
+          <ng-option *ngFor="let country of countries"
+                     [value]="country.uuid">
+            <img height="15"
+                 width="15"
+                 [src]="'assets/flags/' + country.alpha2 + '.png'" /> {{country.name}}
+          </ng-option>
+        </ng-select>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth"
+               class="required-star mb-0">
+          <b>{{editor?.isBusiness ? 'Admin ' : ''}}Date of Birth</b>
+        </label>
+        <p class="mb-2"
+           style="font-size: 11px;">You must be at least 18 years old to sign up to ECompete</p>
+        <input type="date"
+               name="dateOfBirth"
+               class="form-control"
+               placeholder="yyyy-mm-dd"
+               id="dateOfBirth"
+               [(ngModel)]="editor.dateOfBirth">
+      </div>
+      <div class="form-group">
+        <label for="password"
+               class="required-star">
+          <b>Password</b>
+        </label>
+        <input type="password"
+               name="password"
+               class="form-control"
+               id="password"
+               [(ngModel)]="editor.password">
+      </div>
+      <div class="form-group">
+        <label for="passwordConfirm"
+               class="required-star">
+          <b>Confirm Password</b>
+        </label>
+        <input type="password"
+               name="passwordConfirm"
+               class="form-control"
+               id="passwordConfirm"
+               [(ngModel)]="editor.passwordConfirm">
+      </div>
+      <div class="form-group col-12">
+        <div class="form-check">
+          <input type="checkbox"
+                 class="form-check-input"
+                 id="optedIntoMarketingEmails"
+                 name="optedIntoMarketingEmails"
+                 [ngModel]="editor.optedIntoMarketingEmails"
+                 (change)="onMarketingOptInChange($event)">
+          <label class="form-check-label"
+                 for="optedIntoMarketingEmails">
+            <b>Would you like to hear about upcoming events and other bits you might be interested in?</b>
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <div class="form-check">
+          <input type="checkbox"
+                 class="form-check-input"
+                 id="acceptToc"
+                 name="acceptToc"
+                 (change)="acceptToc($event)">
+          <label class="form-check-label"
+                 for="acceptToc">
+            <b>Do you agree to our
+              <a href="legal/terms">terms and conditions</a>?</b>
+          </label>
+        </div>
+      </div>
+      <div>
+        <button type="button"
+                class="w-100 btn btn-primary"
+                [disabled]="loading || !tocAccepted"
+                (click)="register()">Register</button>
+      </div>
+      <button type="button"
+              class="btn btn-link pt-3"
+              [disabled]="loading"
+              (click)="routeLogin()">Already have an account?
+      </button>
+      <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+      <div *ngIf="!validationResult?.valid"
+           class="alert alert-danger mt-2"
+           role="alert">
+        <app-validation-summary [errors]="validationResult?.errors"> </app-validation-summary>
+      </div>
+    </form>
+  </div>
+</div>

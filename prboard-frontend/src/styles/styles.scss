@@ -1,0 +1,141 @@
+@import '_variables';
+@import '_bootstrap.mixins';
+@import '~bootstrap/scss/bootstrap';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ag-theme-alpine .ag-cell, .ag-theme-alpine .ag-full-width-row .ag-cell-wrapper.ag-row-group {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+.ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-header-group-cell {
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+}
+
+$ng-select-highlight: #6200ee !default;
+
+.required-star {
+    &:after {
+      content: '*';
+      color: $brand-danger;
+    }
+  }
+
+  .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    border: none !important;
+    box-shadow: inset 0 1px 1px rgba(98, 0, 238, 0.75), 0 0 0 3px rgba(98, 0, 238, 0.1) !important;
+  }
+  
+  /* width */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(85, 85, 85, 0.295);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.col-xl-fifth {
+  @media (min-width: 1200px) {
+    flex: 0 0 20%;
+    max-width:20%;
+  }
+}
+
+.col-xxl-3 {
+  @media (min-width: 1500px) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.prboard-btn {
+  border: 1px solid white;
+  background-color: #222329;
+  border-radius: 8px;
+  color: white;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.prboard-profile-img {
+  width: 24.52px;
+  height: 24.52px;
+  border-radius: 20px;
+
+  @media (min-width: 576px) {
+    width: 42.05px;
+    height: 42.05px;
+    border-radius: 40px;
+  }
+}
+
+.prboard-profile-img-small {
+  width: 18.05px;
+  height: 18.05px;
+  border-radius: 40px;
+
+  @media (min-width: 576px) {
+    width: 34.05px;
+    height: 34.05px;
+    border-radius: 40px;
+  }
+}
+
+.prboard-profile-img-small-overlay {
+  margin-left: -10px;
+  margin-bottom: -18px;
+
+  @media (min-width: 576px) {
+    margin-left: -20px;
+    margin-bottom: -32px;
+  }
+}
+
+.prboard-main {
+  @media (min-width: 1000px) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.prboard-logo-img {
+  width: 100px;
+
+  @media (min-width: 576px) {
+    width: 200px;
+  }
+}
+
+.prboard-username-top {
+  margin-top: 1.7px; margin-left: 1.5rem; margin-right: 1rem;
+
+  @media (min-width: 576px) {
+    margin-top: 10px; margin-left: 1.5rem; margin-right: 1.5rem;
+  }
+}

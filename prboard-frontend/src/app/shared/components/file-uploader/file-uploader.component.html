@@ -1,0 +1,58 @@
+<div class="form-group mb-0">
+  <label [class.required-star]="required" for="file" class="mb-0">
+    <b>{{name}}
+      <span *ngIf="maximum">({{filesToShow.length}}/{{maximum}})</span>
+    </b>
+  </label>
+  <small class="d-block mb-2"> {{description}} </small>
+  <input type="file"
+         accepts="image/jpeg, image/png"
+         #file
+         name="file"
+         class="form-control-file"
+         id="file"
+         (change)="preview($event)"
+         [disabled]="filesToShow.length >= maximum">
+  <div *ngIf="failureMessage"
+       class="alert alert-danger mt-1"
+       role="alert">
+    <p class="mb-0">{{failureMessage}}</p>
+    <p class="mb-0" style="font-size: 10px">{{failureSubText}}</p>
+  </div>
+  <div class="row mx-1 mt-2">
+    <div *ngFor="let upload of filesToShow">
+      <div class="image-container m-1 col-auto"
+           *ngIf="upload.format==='image'">
+        <span class="helper"></span>
+        <img [src]="upload.url"
+             *ngIf="upload.format==='image' && upload.url"
+             class="upload-image">
+        <button class="close-button btn btn-danger"
+                style="border-radius: 0px;"
+                (click)="remove(upload)">X</button>
+                <p style="font-size: 10px;" class="text-center" *ngIf="upload?.fileSize">{{upload?.fileSize}}mb</p>
+      </div>
+      <div class="image-container m-1 col-auto"
+           *ngIf="upload.format==='zip'">
+        <span class="helper"></span>
+        <img src="assets/vault.svg"
+             *ngIf="upload.format==='zip' && upload.url"
+             class="upload-image">
+        <button class="close-button btn btn-danger"
+                style="border-radius: 0px;"
+                (click)="remove(upload)">X</button>
+      </div>
+      <div class="video-container m-1 col-auto"
+           *ngIf="upload.format==='video'">
+        <span class="helper"></span>
+        <video [src]="upload.url"
+               *ngIf="upload.format==='video' && upload.url"
+               controls
+               class="upload-image mt-2"></video>
+        <button class="close-button btn btn-danger"
+                style="border-radius: 0px;"
+                (click)="remove(upload)">X</button>
+      </div>
+    </div>
+  </div>
+</div>

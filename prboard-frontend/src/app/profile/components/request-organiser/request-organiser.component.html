@@ -1,0 +1,56 @@
+<div class="pt-4 pt-md-4"
+     style="margin-bottom: 400px">
+  <div class="card mobile-login">
+    <div class="card-header text-center">
+      <h2 class="mt-1">Affiliate Application</h2>
+      <p> In order to host events on ECompete as an affiliate, we first need to do a quick review of your account and the
+        sorts of events you'd like to run. This is usually a very quick process.</p>
+      <p> Once your application is accepted you will be able to run events through the platform and also earn by
+        referring others to the platform using your personalised affiliate link.</p>
+      <p> By submitting this application you agree to be bound by the terms of our <a target="_blank" href="legal/affiliate">affiliate agreement</a>.</p>
+    </div>
+    <form class="m-3">
+      <div *ngIf="!succeeded"
+           class="form-group">
+        <label for="reason"
+               style="margin-bottom: 0px;"
+               class="required-star"><b>What do you (or your business) do?</b></label>
+        <p style="font-size: 10px; margin-top: 0px;">We use this to ensure we don't cross promote your affiliated users
+          to direct competitors as specified in our affiliate agreement.</p>
+        <textarea type="reason"
+                  name="reason"
+                  class="form-control"
+                  id="reason"
+                  [(ngModel)]="editor.reason"> </textarea>
+      </div>
+      <div *ngIf="!succeeded"
+           class="form-group">
+        <label for="reason"
+               class="required-star"><b>What sorts of events do you plan to run?</b></label>
+        <textarea type="reason"
+                  name="reason"
+                  class="form-control"
+                  id="reason"
+                  [(ngModel)]="editor.businessDescription"> </textarea>
+      </div>
+      <div *ngIf="!succeeded">
+        <button type="button"
+                class="w-100 btn btn-primary"
+                [disabled]="loading"
+                (click)="submit()">Submit Application</button>
+      </div>
+      <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+      <div *ngIf="!validationResult?.valid && failed && !loading"
+           class="alert alert-danger mt-2"
+           role="alert">
+        <app-validation-summary [errors]="validationResult?.errors"> </app-validation-summary>
+      </div>
+      <div *ngIf="succeeded && !loading"
+           class="alert alert-success mt-1"
+           role="alert">
+        We will now review your request as soon as we can, once we do this we will upgrade your account to an event
+        organiser and you will be able to host your own events.
+      </div>
+    </form>
+  </div>
+</div>
