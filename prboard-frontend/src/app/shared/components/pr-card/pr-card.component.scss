@@ -21,8 +21,36 @@
     padding-right: 0.8rem;
 }
 
+.merge-text {
+    @media (max-width: 576px) {
+        font-size: 12px;
+      }
+}
+
+.merge-arrow-wrapper {
+    @media (max-width: 576px) {
+        margin-top: -2px !important;
+      }
+}
+
+.merge-arrow {
+    font-size: 11px;
+
+    @media (min-width: 576px) {
+        font-size: 12px;
+      }
+}
+
 .git-source-image {
     width: 33.19px;
     height: 33.19px;
     border-radius: 20px;
+}
+
+.pr-card-container {
+    height: 192px;
+
+    @media (min-width: 576px) {
+        height: 216px;
+      }
 }
