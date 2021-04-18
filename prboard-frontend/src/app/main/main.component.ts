@@ -2,7 +2,7 @@ import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { SecurityContext } from '../shared/models/auth.models';
 import { isPlatformServer } from '@angular/common';
-import { faFutbol, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faFutbol, faGamepad, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,8 @@ export class MainComponent implements OnInit {
 
   football = faFutbol;
   gamepad = faGamepad;
+
+  plus = faPlus;
 
   siteMode = 'esports';
 

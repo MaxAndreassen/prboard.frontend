@@ -48,9 +48,15 @@
 }
 
 .pr-card-container {
-    height: 192px;
+  @media (min-width: 576px) {
+      min-height: 216px;
+    }
+}
 
-    @media (min-width: 576px) {
-        height: 216px;
-      }
+.tag {
+  border: 1px solid #d8d8d8;
+  display: inline-flex;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  border-radius: 50px;
 }
