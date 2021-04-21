@@ -4,6 +4,8 @@ import { SecurityModule } from './security/security.module';
 import { ProfileModule } from './profile/profile.module';
 import { CheckOutModule } from './check-out/check-out.module';
 import { MainComponent } from './main/main.component';
+import { ConnectedGitAccountsComponent } from './main/components/connected-git-accounts/connected-git-accounts.component';
+import { MainModule } from './main/main.module';
 
 const routes: Routes = [
   {
@@ -20,6 +22,10 @@ const routes: Routes = [
   {
     path: 'purchase',
     loadChildren: () => CheckOutModule
+  },
+  {
+    path: 'connected',
+    loadChildren: () => MainModule
   }
 ];
 

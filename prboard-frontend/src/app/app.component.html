@@ -13,8 +13,34 @@
 <!-- Creates a layout with a left-positioned sidenav and explicit content. -->
 <main class="bg-primary prboard-main">
         <div style="min-height:70vh;">
-                <router-outlet></router-outlet>
-        </div>
+                <div class="jumbotron m-0 mx-auto d-block bg-primary"
+                     style="max-width: 1300px;">
+                        <div class="mb-4" *ngIf="!siteMode && !!securityContext?.authenticated">
+                                <a href="/">
+                                        <img src="assets/logo-white.png"
+                                             class="prboard-logo-img">
+                                </a>
+                                <a href="/profile/edit">
+                                        <p class="float-right text-white prboard-username-top">
+                                                {{securityContext?.user?.username}}</p>
+                                </a>
+                                <button style="height: 43.05px;"
+                                        class="prboard-btn float-right d-none d-sm-block">Repositories</button>
+                                <button style="height: 43.05px;"
+                                        class="prboard-btn float-right d-none d-sm-block mr-2" (click)="routeHome()">Pull Requests</button>
+                                <button style="height: 43.05px;"
+                                        class="prboard-btn float-right d-none d-sm-block mr-2" (click)="routeConnect()">Git Accounts</button>
+                        </div>
+                        <button style="height: 43.05px;" *ngIf="siteMode!='hideBanner'"
+                                class="prboard-btn d-inline d-sm-none">Git Accounts</button>
+                        <button style="height: 43.05px;" *ngIf="siteMode!='hideBanner'"
+                                class="prboard-btn d-inline d-sm-none">Pull Requests</button>
+                        <button style="height: 43.05px;" *ngIf="siteMode!='hideBanner'"
+                                class="prboard-btn d-inline d-sm-none">Repositories</button>
+                        <div class="my-4"></div>
+                        <router-outlet></router-outlet>
+                        </div>
+                </div>
 </main>
 
 <!--<div class="footer-tool"

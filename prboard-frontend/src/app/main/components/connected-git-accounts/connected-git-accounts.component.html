@@ -1,0 +1,66 @@
+<app-loading-spinner invertColours="true"
+                     *ngIf="connectedAccountsLoading"></app-loading-spinner>
+<div *ngIf="!connectedAccountsLoading">
+
+  <div class="bg-white px-4 pt-4 pb-1 mt-2"
+       style="border-radius: 8px;">
+    <h5 class="text-center mt-2">Connect New Account</h5>
+    <div class="form-group">
+      <label class="mb-0"
+             for="source">
+        <b>Source</b>
+      </label>
+      <ng-select [(ngModel)]="newGitAccountSourceUuid"
+                 name="source">
+        <ng-option *ngFor="let option of gitOptions"
+                   [value]="option.uuid">
+          <img height="15"
+               width="15"
+               [src]="'assets/git_sources/' + option.imageSource + '.png'" /> {{option.name}}
+        </ng-option>
+      </ng-select>
+      <div *ngIf="newGitAccountSourceUuid === 'github'"
+           class="form-check mt-2">
+        <input type="checkbox"
+               class="form-check-input"
+               id="acceptToc"
+               [ngModel]="requestPrivate"
+               name="acceptToc"
+               (change)="privateRepos($event)">
+        <label class="form-check-label"
+               for="acceptToc">
+          <b>Include private repos?</b>
+          <p class="mt-1 mb-0"
+             style="font-size: 12px;">Github does not allow readonly access to private repos so we will need to request
+            full
+            access to your private repos, similar to what CI/CD tools request, in order to display your private pull
+            requests.</p>
+          <p class="mt-1 mb-0"
+             style="font-size: 12px;">PRBoard will <b>never</b> make changes to your repositories. We only ever access
+            the pull request API. If you don't want to include private repos then leave this unchecked and we won't need
+            to request full access.</p>
+          <p class="mt-1"
+             style="font-size: 12px;">If you want to include private repos without giving PRBoard full access then
+            please comment on this open <a href="https://github.com/jollygoodcode/jollygoodcode.github.io/issues/6"
+               target="blank"><b style="text-decoration: underline;">GitHub issue</b></a> so we can make that happen! :)
+          </p>
+        </label>
+      </div>
+      <button type="button"
+              class="btn btn-primary d-block mt-3 mx-auto"
+              style="width: 200px;"
+              [disabled]="!newGitAccountSourceUuid"
+              (click)="connect()">Connect</button>
+    </div>
+    <!--<button class="mx-auto d-block plus-button mt-4">
+    <fa-icon [icon]="plus"
+             class="text-white"
+             style="font-size: 18px;"></fa-icon>
+  </button>-->
+  </div>
+  <div class="mt-2" *ngFor="let account of connectedAccounts">
+    <app-connected-account-card [account]="account"></app-connected-account-card>
+  </div>
+  <p class="text-white text-center mt-1">{{!!connectedAccounts?.length ? connectedAccounts?.length : 0}}/2 accounts
+    connected</p>
+</div>

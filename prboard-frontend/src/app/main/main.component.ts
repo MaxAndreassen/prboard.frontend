@@ -4,6 +4,9 @@ import { SecurityContext } from '../shared/models/auth.models';
 import { isPlatformServer } from '@angular/common';
 import { faFutbol, faGamepad, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GitAccount } from '../shared/models/git-account.models';
+import { ConnectAccountService } from '../shared/services/connect-accounts/connect-account.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -21,34 +24,46 @@ export class MainComponent implements OnInit {
 
   siteMode = 'esports';
 
+  connectedAccountsLoading = false;
+  connectedAccounts: GitAccount[] = [];
+
   constructor(
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: any,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private connectAccountService: ConnectAccountService
   ) {
   }
 
   ngOnInit(): any {
     if (isPlatformServer(this.platformId)) {
-        return;
+      return;
     }
 
     this.authService.authStateChange$.subscribe((context: SecurityContext) => {
-        this.securityContext = context;
+      this.securityContext = context;
+
+      if (!this.securityContext.authenticated) {
+        this.router.navigateByUrl('/security/login');
+      }
     });
 
     this.route.queryParamMap.subscribe(params => {
       this.siteMode = params.get('siteMode');
     });
+
+    this.connectedAccountsLoading = true;
+
+    this.connectAccountService
+      .listAccounts()
+      .pipe(finalize(() => this.connectedAccountsLoading = false))
+      .subscribe(p => {
+        this.connectedAccounts = p;
+      });
   }
 
-  navigateEsports(): any {
-    this.router.navigateByUrl('tournaments/search?modeUuid=1125f111-f5e6-4da0-8231-280ebf07161f&siteMode=esports');
+  routeConnect(): any {
+    this.router.navigateByUrl('connected');
   }
-
-  navigateGrassroot(): any {
-    this.router.navigateByUrl('tournaments/search?modeUuid=1225f111-f5e6-4da0-8231-280ebf07161f&siteMode=grassroot');
-  }
-
 }

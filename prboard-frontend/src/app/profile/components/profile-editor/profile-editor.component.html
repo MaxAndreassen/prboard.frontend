@@ -1,249 +1,87 @@
-<div class="user-profile-page">
-  <div class="banner"></div>
-  <div class="container">
-    <div class="container-summary card card-body">
-      <div class="card-content">
-        <!--<app-sanitized-image class="uploader-image profile-photo" *ngIf="!!profilePictureUrl" [chosenUrl]="profilePictureUrl"></app-sanitized-image>!-->
-        <div class="profile-picture shadow-sm">
-          <div class="uploader-image"
-               alt="Profile picture"
-               [style.background-image]="editor?.profileUrl ? 'url(' + editor?.profileUrl + ')' : 'url(assets/user.svg)'">
-          </div>
+<app-loading-spinner *ngIf="initialPageLoading"></app-loading-spinner>
+<div class="alert alert-warning mt-2 mb-0 w-100"
+     style="border-radius: 8px;"
+     *ngIf="!editor?.isEmailVerified">
+  <h3 class="text-center"> Verify Account </h3>
+  <p class="text-center"
+     *ngIf="!emailSending && emailSent"> Verification Email Sent. </p>
+  <p class="text-center"
+     *ngIf="!emailSending && emailSent"> Once you open the email and verify your account, please refresh the page.
+  </p>
+  <p *ngIf="!emailSending && !emailSent"
+     class="text-center">You still need to verify your account using the email you will have received when you
+    initially signed up.</p>
+  <p *ngIf="!emailSending && !emailSent"
+     class="text-center">If you can't find this email then click the button below and we'll resend it.</p>
+  <p *ngIf="!emailSending && !emailSent"
+     class="text-center">Make sure to double check your spam folder if you still can't find it.</p>
+  <button *ngIf="!emailSending && !emailSent"
+          type="button"
+          class="mx-auto d-block btn btn-primary"
+          (click)="sendVerifyEmail()">Resend Verification Email</button>
+
+  <app-loading-spinner *ngIf="emailSending"></app-loading-spinner>
+</div>
+<div class="pt-2 pt-md-2"
+     *ngIf="!initialPageLoading">
+  <div class="card"
+       style="border-radius: 8px;">
+    <form class="mx-3 mt-3 mb-3">
+      <div class="row">
+        <div class="form-group col-12 col-lg-6">
+          <label for="name">
+            <b>Name</b>
+          </label>
+          <input type="text"
+                 name="name"
+                 class="form-control"
+                 id="name"
+                 [(ngModel)]="editor.name">
         </div>
-        <h6 class="text-center mt-1">
-          <span class="badge badge-success"
-                *ngIf="editor?.isEmailVerified">Email Verified</span>
-          <span class="badge badge-danger"
-                *ngIf="!editor?.isEmailVerified">Email Not Verified</span>
-        </h6>
-      </div>
-      <!--<app-loading-spinner *ngIf="loading"></app-loading-spinner>-->
-      <div *ngIf="!initialPageLoading">
-        <h3 class="name"
-            *ngIf="!!firstName || !!lastName">
-          {{firstName}} {{lastName}}
-          <!--<app-verified-user-indicator *ngIf="model?.influencer"></app-verified-user-indicator>-->
-        </h3>
-        <p class="text-center text-muted mb-0">
-          {{username}}
-          <!--<span *ngIf="model.emailAddress">| {{model.emailAddress}}</span>-->
-        </p>
-      </div>
-      <a *ngIf="affiliateUser"
-         [href]="'profile/' + affiliateUser?.uuid"
-         class="d-inline-flex mx-auto mt-3"
-         target="_blank">
-        <div class="img-thumbnail user-profile-refer d-table"
-             [style.background-image]="affiliateUser?.profileUrl ? 'url(' + affiliateUser?.profileUrl + ')' : 'url(assets/user.svg)'">
-        </div>
-        <p class="text-left username-text-refer mb-0 d-table"
-           style="overflow: hidden;">Referred by {{affiliateUser?.username}}</p>
-      </a>
-    </div>
-
-    <app-loading-spinner *ngIf="initialPageLoading"></app-loading-spinner>
-
-    <div class="alert alert-warning mt-2 mb-0 w-100"
-         *ngIf="!editor?.isEmailVerified">
-      <h3 class="text-center"> Verify Account </h3>
-      <p class="text-center"
-         *ngIf="!emailSending && emailSent"> Verification Email Sent. </p>
-      <p class="text-center"
-         *ngIf="!emailSending && emailSent"> Once you open the email and verify your account, please refresh the page.
-      </p>
-      <p *ngIf="!emailSending && !emailSent"
-         class="text-center">You still need to verify your account using the email you will have received when you
-        initially signed up.</p>
-      <p *ngIf="!emailSending && !emailSent"
-         class="text-center">If you can't find this email then click the button below and we'll resend it.</p>
-      <p *ngIf="!emailSending && !emailSent"
-         class="text-center">Make sure to double check your spam folder if you still can't find it.</p>
-      <button *ngIf="!emailSending && !emailSent"
-              type="button"
-              class="mx-auto d-block btn btn-primary"
-              (click)="sendVerifyEmail()">Resend Verification Email</button>
-
-      <app-loading-spinner *ngIf="emailSending"></app-loading-spinner>
-    </div>
-
-    <div class="pt-2 pt-md-2"
-         *ngIf="!initialPageLoading">
-      <div class="card">
-        <div class="row m-3">
-          <div class="col-12 p-0">
-            <h5 class="mb-3"> Affiliate Details </h5>
-            <p *ngIf="!editor?.isOrganiser">As an ECompete affiliate you will be able to host your own events as well as
-              gain access to an affiliate sign up link which, when used, will earn you 5% of any ticket purchase made by
-              the users who sign up with it.</p>
-            <a *ngIf="!editor?.isOrganiser"
-               href="security/request-organiser">
-              <button type="button"
-                      class="d-block btn btn-primary">Become Affiliate</button>
-            </a>
-            <p *ngIf="editor?.isOrganiser && !editor?.isEmailVerified">You need to verify your account.</p>
-            <button type="button"
-                    class="btn btn-primary"
-                    *ngIf="editor?.isOrganiser && !editor?.isEmailVerified"
-                    (click)="sendVerifyEmail()">Resend Verification Email</button>
-            <p *ngIf="!account?.chargesEnabled && editor?.isEmailVerified && editor?.isOrganiser">You need to complete
-              your <a href="https://stripe.com/gb/customers">Stripe</a> onboarding before you can get your affiliate
-              link.</p>
-            <a *ngIf="!account?.chargesEnabled && editor?.isEmailVerified && editor?.isOrganiser">
-              <button type="button"
-                      (click)="paymentOnboarding()"
-                      [disabled]="paymentLinkLoading"
-                      class="d-block btn btn-primary">Start Onboarding</button>
-            </a>
-            <p *ngIf="account?.chargesEnabled && editor?.isEmailVerified && editor?.isOrganiser">Below is your affiliate
-              link which you can copy and share. Anyone who visits this link will be redirected to the ECompete
-              registration page, and their account will become
-              affiliated to you when they complete it.</p>
-            <p *ngIf="account?.chargesEnabled && editor?.isEmailVerified && editor?.isOrganiser"
-               class="mb-0"><b>https://www.ecompete.io/security/register?affiliate={{editor?.uuid}}</b></p>
-          </div>
+        <!--<div class="form-group col-12">
+            <app-file-uploader *ngIf="!loading"
+                               name="Profile Image"
+                               image="true"
+                               [existingFiles]="existingProfileImage"
+                               (uploadsChanged)="updateProfileImage($event)"
+                               (existingFilesChanged)="updateExistingProfileImage($event)"></app-file-uploader>
+          </div>-->
+        <div *ngIf="uploadError"
+             class="alert alert-danger mt-2"
+             role="alert">
+          <p>Error Uploading Image. There is currently a known issue with iPhone 11 Max.</p>
+          <p>If you are using this device please try uploading your photo on a different device.</p>
         </div>
       </div>
-
-      <div class="pt-2 pt-md-2"
-           *ngIf="!initialPageLoading">
-        <div class="card">
-          <form class="m-3">
-            <div class="row">
-              <div class="col-12">
-                <h5 class="mb-3"> Main Details </h5>
-              </div>
-              <div class="form-group col-6"
-                   *ngIf="!editor?.isBusiness">
-                <label for="firstName">
-                  <b>First Name</b>
-                </label>
-                <input type="text"
-                       name="firstName"
-                       class="form-control"
-                       id="firstName"
-                       [(ngModel)]="editor.firstName">
-              </div>
-              <div class="form-group col-6"
-                   *ngIf="!editor?.isBusiness">
-                <label for="lastName">
-                  <b>Last Name</b>
-                </label>
-                <input type="text"
-                       name="lastName"
-                       class="form-control"
-                       id="lastName"
-                       [(ngModel)]="editor.lastName">
-              </div>
-              <div class="form-group col-12"
-                   *ngIf="!!editor?.isBusiness">
-                <label for="companyName">
-                  <b>Company Name</b>
-                </label>
-                <input type="text"
-                       name="companyName"
-                       class="form-control"
-                       id="companyName"
-                       [(ngModel)]="editor.companyName">
-              </div>
-              <div class="form-group col-12">
-                <label for="username">
-                  <b>{{editor?.isBusiness ? 'Ecompete ' : ''}}Username</b>
-                </label>
-                <input type="text"
-                       name="username"
-                       class="form-control"
-                       id="username"
-                       [(ngModel)]="editor.username">
-              </div>
-              <div class="form-group col-12">
-                <app-file-uploader *ngIf="!loading"
-                                   name="Profile Image"
-                                   image="true"
-                                   [existingFiles]="existingProfileImage"
-                                   (uploadsChanged)="updateProfileImage($event)"
-                                   (existingFilesChanged)="updateExistingProfileImage($event)"></app-file-uploader>
-              </div>
-              <div *ngIf="uploadError"
-                   class="alert alert-danger mt-2"
-                   role="alert">
-                <p>Error Uploading Image. There is currently a known issue with iPhone 11 Max.</p>
-                <p>If you are using this device please try uploading your photo on a different device.</p>
-              </div>
-              <div class="col-12">
-                <hr class="mt-1 mb-3">
-                <h5 class="mb-3"> 3rd Party Usernames </h5>
-              </div>
-              <div class="form-group col-6">
-                <label for="playstationUsername">
-                  <b>PSN Username</b>
-                </label>
-                <input type="text"
-                       name="playstationUsername"
-                       class="form-control"
-                       id="playstationUsername"
-                       [(ngModel)]="editor.playstationUsername">
-              </div>
-              <div class="form-group col-6">
-                <label for="xboxUsername">
-                  <b>Xbox Username</b>
-                </label>
-                <input type="text"
-                       name="xboxUsername"
-                       class="form-control"
-                       id="xboxUsername"
-                       [(ngModel)]="editor.xboxUsername">
-              </div>
-              <div class="form-group col-6">
-                <label for="steamUsername">
-                  <b>Steam Username</b>
-                </label>
-                <input type="text"
-                       name="steamUsername"
-                       class="form-control"
-                       id="steamUsername"
-                       [(ngModel)]="editor.steamUsername">
-              </div>
-              <div class="form-group col-6">
-                <label for="twitchUsername">
-                  <b>Twitch Username</b>
-                </label>
-                <input type="text"
-                       name="twitchUsername"
-                       class="form-control"
-                       id="twitchUsername"
-                       [(ngModel)]="editor.twitchUsername">
-              </div>
-              <div class="form-group col-6">
-                <label for="twitterHandle">
-                  <b>Twitter Handle</b>
-                </label>
-                <input type="text"
-                       name="twitterHandle"
-                       class="form-control"
-                       id="twitterHandle"
-                       [(ngModel)]="editor.twitterHandle">
-              </div>
-            </div>
-            <div>
-              <button type="button"
-                      class="w-100 btn btn-primary"
-                      [disabled]="loading"
-                      (click)="update()">Update</button>
-            </div>
-
-            <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-            <div *ngIf="!validationResult?.valid"
-                 class="alert alert-danger mt-2"
-                 role="alert">
-              <app-validation-summary [errors]="validationResult?.errors"> </app-validation-summary>
-            </div>
-            <div *ngIf="successfullyUpdated"
-                 class="alert alert-success mt-2"
-                 role="alert">
-              Successfully Updated.
-            </div>
-          </form>
-        </div>
+      <div>
+        <button type="button"
+                class="btn btn-primary d-none d-md-inline"
+                [disabled]="loading"
+                (click)="update()">Update Account</button>
+        <button type="button"
+                class="btn btn-primary d-md-none w-100"
+                [disabled]="loading"
+                (click)="update()">Update Account</button>
+        <button type="button"
+                class="btn btn-link text-center w-100 d-md-none mt-2"
+                [disabled]="loading"
+                (click)="logout()">Log Out Of Account</button>
+        <button type="button"
+                class="btn btn-link float-right d-none d-md-inline"
+                [disabled]="loading"
+                (click)="logout()">Log Out Of Account</button>
       </div>
-    </div>
+
+      <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+      <div *ngIf="!validationResult?.valid"
+           class="alert alert-danger mt-2"
+           role="alert">
+        <app-validation-summary [errors]="validationResult?.errors"> </app-validation-summary>
+      </div>
+      <div *ngIf="successfullyUpdated"
+           class="alert alert-success mt-2 mb-0"
+           role="alert">
+        Successfully Updated.
+      </div>
+    </form>
   </div>

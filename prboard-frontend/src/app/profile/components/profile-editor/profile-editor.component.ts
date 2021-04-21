@@ -10,6 +10,7 @@ import { Upload, FileSummary } from '../../../shared/models/file.models';
 import { IValidationResult, ValidationResult } from '../../../shared/models/validation.models';
 import { PaymentService } from 'src/app/shared/services/payment/payment.service';
 import { Account } from 'src/app/shared/models/payment.models';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-editor',
@@ -44,6 +45,8 @@ export class ProfileEditorComponent implements OnInit {
   existingProfileImage: FileSummary[] = [];
 
   affiliateUser: UserEditor;
+
+  plus = faPlus;
 
   constructor(
     private authService: AuthService,
@@ -89,17 +92,6 @@ export class ProfileEditorComponent implements OnInit {
         .pipe(finalize(() => this.initialPageLoading = false))
         .subscribe(result => {
           this.editor = result;
-          this.firstName = this.editor.firstName;
-          this.lastName = this.editor.lastName;
-          this.username = this.editor.username;
-
-          if (!!this.editor.affiliateUserUuid) {
-            this.userService.getUser(this.editor.affiliateUserUuid)
-              .pipe(finalize(() => { }))
-              .subscribe(p => {
-                this.affiliateUser = p;
-              });
-          }
         });
     }
   }
@@ -119,9 +111,8 @@ export class ProfileEditorComponent implements OnInit {
         this.editor = result;
         this.editor.isEmailVerified = validated;
 
-        this.firstName = this.editor.firstName;
-        this.lastName = this.editor.lastName;
-        this.username = this.editor.username;
+        this.authService.updateUser(this.editor.name);
+
       }, err => {
         if (err.status && err.status === 412) {
           this.validationResult = err.error;
@@ -130,6 +121,10 @@ export class ProfileEditorComponent implements OnInit {
           this.validationResult = new ValidationResult('An Unknown Error Occured.');
         }
       });
+  }
+
+  logout(): any {
+    this.authService.logout();
   }
 
   paymentOnboarding(): any {

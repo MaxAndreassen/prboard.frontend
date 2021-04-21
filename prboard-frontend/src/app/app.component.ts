@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     });
 
     this.route.queryParamMap.subscribe(params => {
-      this.siteMode = params.get('siteMode');
+      this.siteMode = params.get('code');
       this.hideOverflow = params.get('overflow');
     });
   }
@@ -66,5 +66,13 @@ export class AppComponent implements OnInit {
 
   toggleBurgerNav(): any {
     this.burgerNavOpen = !this.burgerNavOpen;
+  }
+
+  routeConnect(): any {
+    this.router.navigateByUrl('/connected');
+  }
+
+  routeHome(): any {
+    this.router.navigateByUrl('/');
   }
 }

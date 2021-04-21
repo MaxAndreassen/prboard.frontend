@@ -11,17 +11,10 @@ export class RequestOrganiser {
 export class SignUpRequest {
     password: string;
     passwordConfirm: string;
-    username: string;
     email: string;
-    firstName: string;
-    lastName: string;
-    companyName: string;
-    dateOfBirth: Date;
-    countryUuid: string;
+    name: string;
     isBusiness: boolean;
     optedIntoMarketingEmails: boolean;
-    affiliateUserUuid: string;
-    isSilent: boolean;
 }
 
 export interface SignUpLinkCheckResult {

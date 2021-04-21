@@ -1,0 +1,30 @@
+<div class="bg-white px-4 pt-4 pb-3 pr-card-container"
+     style="border-radius: 8px;">
+  <div class="row">
+    <div class="col-12">
+      <div class="w-100"
+           style="height: 48px;">
+        <div class="float-left">
+          <img [src]="!account?.avatarUrl ? 'assets/user.svg' : account?.avatarUrl"
+               class="profile-img">
+          <img [src]="'assets/git_sources/' + account?.source + '.png'" class="ml-1"
+               style="height: 42px;">
+        </div>
+        <div class="d-flex">
+          <p class="text-secondary float-left ml-3 repo-text"
+             style="max-width: 80%;">{{account?.username}} | <b>{{account?.publicRepoCount}}</b> Public Repos |
+            <b>{{account?.privateRepoCount}}</b> Private Repos
+          </p>
+          <button type="button"
+                  class="btn btn-primary d-none d-sm-block ml-auto"
+                  style="width: 160px; height: 42px;"
+                  disabled="true">Disconnect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button"
+          class="btn btn-primary d-block d-sm-none mt-4 mx-auto"
+          style="width: 200px;"
+          disabled="true">Disconnect</button>
+</div>

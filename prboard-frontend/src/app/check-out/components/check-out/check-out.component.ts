@@ -3,14 +3,11 @@ import { PaymentIntentSecret } from '../../../shared/models/payment.models';
 import { PaymentService } from '../../../shared/services/payment/payment.service';
 import { finalize } from 'rxjs/operators';
 import { IAppConfig, APP_CONFIG } from '../../../shared/models/configuration.models';
-import { TournamentService } from '../../../shared/services/tournament/tournament.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { SecurityContext } from '../../../shared/models/auth.models';
 import { TournamentPromoSummary, TournamentSummary, TournamentUserEditor } from '../../../shared/models/tournaments.models';
-import { TournamentUserService } from '../../../shared/services/tournament-user/tournament-user.service';
 import { isPlatformServer } from '@angular/common';
-import { TournamentPromoService } from 'src/app/shared/services/tournament-promo/tournament-promo.service';
 import { UserCreditService } from 'src/app/shared/services/user-credit/user-credit.service';
 
 @Component({
@@ -69,11 +66,8 @@ export class CheckOutComponent implements OnInit {
     private paymentService: PaymentService,
     @Inject(APP_CONFIG) public config: IAppConfig,
     @Inject(PLATFORM_ID) private platformId: any,
-    private tournamentService: TournamentService,
     private authService: AuthService,
-    private tournamentUserService: TournamentUserService,
     private route: ActivatedRoute,
-    private promoService: TournamentPromoService,
     private userCreditService: UserCreditService
   ) {
 
@@ -94,48 +88,13 @@ export class CheckOutComponent implements OnInit {
       this.securityContext = context;
     });
 
-    this.tournamentService
-      .getTournamentSummary(this.tournamentUuid)
-      .pipe(finalize(() => this.productLoading = false))
-      .subscribe(result => {
-        this.tournamentSummary = result;
-        this.vat = Math.round((this.tournamentSummary.entryFeeInPounds * 0.2) * 100) / 100;
-
-        let userUuid = this.authService.getGuestUuid();
-
-        if (this.securityContext.authenticated) {
-          userUuid = this.securityContext.user.uuid;
-        } else {
-          userUuid = this.userUuid;
-        }
-
-        if (!!this.promoUuid) {
-          this.promoLoading = true;
-
-          this.promoService
-            .getPromo(this.promoUuid)
-            .pipe(finalize(() => this.promoLoading = false))
-            .subscribe(promo => {
-              this.promo = promo;
-              this.promoAmount = Math.round((this.tournamentSummary.entryFeeInPounds * (this.promo.percentageOff / 100)) * 100) / 100;
-              this.vat = Math.round(((this.tournamentSummary.entryFeeInPounds - this.promoAmount) * 0.2) * 100) / 100;
-
-              this.getCredit();
-            });
-        } else {
-          this.getCredit();
-        }
-
-        this.loading = true;
-        this.paymentService
-          .createPaymentIntent(this.tournamentSummary.uuid, userUuid, this.promoUuid, this.teamUuid)
-          .pipe(finalize(() => this.loading = false))
-          .subscribe(res => {
-            this.paymentIntent = res;
-            this.setupStripe();
-          }, err => {
-            this.failed = true;
-          });
+    this.loading = true;
+    this.paymentService
+      .createPaymentIntent(null, this.securityContext.user.uuid, this.promoUuid, this.teamUuid)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(res => {
+        this.paymentIntent = res;
+        this.setupStripe();
       }, err => {
         this.failed = true;
       });
@@ -230,7 +189,7 @@ export class CheckOutComponent implements OnInit {
           editor.transactionIdentifier = result.paymentIntent.id;
           editor.teamUuid = this.teamUuid;
 
-          this.tournamentUserService
+          /*this.tournamentUserService
             .createTournamentUser(editor)
             .pipe(finalize(() => {
               this.paymentLoading = false;
@@ -239,7 +198,7 @@ export class CheckOutComponent implements OnInit {
               this.closeModal.emit(true);
             }))
             .subscribe(res => {
-            });
+            });*/
 
           // Show a success message to your customer
           // There's a risk of the customer closing the window before callback
@@ -329,7 +288,7 @@ export class CheckOutComponent implements OnInit {
             editor.teamUuid = this.teamUuid;
             editor.transactionIdentifier = result.paymentIntent.id;
 
-            this.tournamentUserService
+            /*this.tournamentUserService
               .createTournamentUser(editor)
               .pipe(finalize(() => {
                 this.paymentLoading = false;
@@ -338,7 +297,7 @@ export class CheckOutComponent implements OnInit {
                 this.closeModal.emit(true);
               }))
               .subscribe(res => {
-              });
+              });*/
 
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback

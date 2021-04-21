@@ -26,36 +26,8 @@ export class UserService {
       formData.append('uuid', editor.uuid);
     }
 
-    if (!!editor.firstName) {
-      formData.append('firstName', editor.firstName);
-    }
-
-    if (!!editor.lastName) {
-      formData.append('lastName', editor.lastName);
-    }
-
-    if (!!editor.username) {
-      formData.append('username', editor.username);
-    }
-
-    if (!!editor.playstationUsername) {
-      formData.append('playstationUsername', editor.playstationUsername);
-    }
-
-    if (!!editor.xboxUsername) {
-      formData.append('xboxUsername', editor.xboxUsername);
-    }
-
-    if (!!editor.steamUsername) {
-      formData.append('steamUsername', editor.steamUsername);
-    }
-
-    if (!!editor.twitchUsername) {
-      formData.append('twitchUsername', editor.twitchUsername);
-    }
-
-    if (!!editor.twitterHandle) {
-      formData.append('twitterHandle', editor.twitterHandle);
+    if (!!editor.name) {
+      formData.append('name', editor.name);
     }
 
     if (!!editor.existingProfileUuid) {

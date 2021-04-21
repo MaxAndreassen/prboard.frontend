@@ -180,10 +180,12 @@ export class AuthService {
       }));
   }
 
-  updateUser<TUser>(): TUser {
+  updateUser<TUser>(name: string): TUser {
     if (!this.user) {
       this.user = this.getStoredUser();
     }
+
+    this.user.username = name;
 
     this.setUser(this.user);
     this.authStateChange$.next(this.securityContext);

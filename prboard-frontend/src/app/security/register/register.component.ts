@@ -24,14 +24,11 @@ export class RegisterComponent implements OnInit {
   deactivated = false;
   reactivate = false;
   redirectUrl: string = null;
-  affiliateUserUuid: string;
 
   countries: CountrySummary[] = [];
   countriesLoading = false;
 
   tocAccepted = false;
-
-  affiliateUser: UserEditor;
 
   constructor(
     private router: Router,
@@ -48,18 +45,8 @@ export class RegisterComponent implements OnInit {
     }
 
     this.route.queryParamMap.subscribe(params => {
-      this.affiliateUserUuid = params.get('affiliate');
       this.editor.isBusiness = !!params.get('business');
-      this.editor.affiliateUserUuid = this.affiliateUserUuid;
     });
-
-    if (!!this.affiliateUserUuid) {
-      this.userService.getUser(this.affiliateUserUuid)
-        .pipe(finalize(() => { }))
-        .subscribe(p => {
-          this.affiliateUser = p;
-        });
-    }
 
     this.countriesLoading = true;
 
@@ -103,10 +90,6 @@ export class RegisterComponent implements OnInit {
   }
 
   routeLogin(): any {
-    if (!!this.affiliateUserUuid) {
-      this.router.navigateByUrl(`/security/login?affiliate=${this.affiliateUserUuid}`);
-    } else {
-      this.router.navigateByUrl(`/security/login`);
-    }
+    this.router.navigateByUrl(`/security/login`);
   }
 }

@@ -11,6 +11,7 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 import { FormsModule } from '@angular/forms';
 import { AssetRowComponent } from './components/asset-row/asset-row.component';
 import { PrCardComponent } from './components/pr-card/pr-card.component';
+import { ConnectedAccountCardComponent } from './components/connected-account-card/connected-account-card.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { PrCardComponent } from './components/pr-card/pr-card.component';
     VersionStatusBarComponent,
     SearchBoxComponent,
     AssetRowComponent,
-    PrCardComponent
+    PrCardComponent,
+    ConnectedAccountCardComponent
   ],
   exports: [
     CardComponent,
@@ -38,7 +40,8 @@ import { PrCardComponent } from './components/pr-card/pr-card.component';
     VersionStatusBarComponent,
     SearchBoxComponent,
     AssetRowComponent,
-    PrCardComponent
+    PrCardComponent,
+    ConnectedAccountCardComponent
   ]
 })
 export class SharedModule { }
