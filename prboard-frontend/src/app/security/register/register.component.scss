@@ -1,5 +1,6 @@
-@import '~src/styles/_variables';
-@import '_bootstrap.mixins';
+.mobile-login {
+    border: none;
+}
 
 @media (max-width: 767.98px) {
     .mobile-login {
@@ -12,29 +13,22 @@
  @media (min-width: 768px) {
     .mobile-login {
         width: 400px;
-        margin-top: 42px;
+        margin-top: 32px;
         margin-left: auto;
         margin-right: auto;
         display: block;
     }
   }
 
-  .user-profile {
-    border-radius: 200px;
-    width: 30px;
-    height: 30px;
-    padding: 1px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+  .login-link {
+    font-size: 14px;
+    width:50%;
+  }
 
-.username-text {
-    overflow: hidden;
-    margin-top: 6px;
-    margin-left: 4px;
-
-    @include media-breakpoint-down(sm) {
-        font-size: 10px;
-       }
-}
+  @media (max-width: 768px) {
+    .login-link {
+        width: 100%;
+        font-size: 13px;
+        text-align: center !important;
+    }
+  }

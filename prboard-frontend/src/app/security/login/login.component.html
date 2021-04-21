@@ -1,47 +1,40 @@
 <div class="pt-4 pt-md-4" style="margin-bottom: 400px">
-  <div class="card mobile-login">
-    <div class="card-header text-center">
-      <h2 class="mt-1">Login</h2>
-    </div>
+  <img src="assets/logo-white.png"
+  class="prboard-logo-img-medium mx-auto d-block mt-1 mt-sm-3 mb-4 mb-sm-1">
+  <div class="card mobile-login px-2 pt-2 pb-1" style="border-radius: 8px;">
     <div *ngIf="newPassword"
          class="alert alert-success mt-3 mx-3"
          role="alert">
       Password successfully reset.
     </div>
-    <form class="m-3">
+    <form class="mt-3 mx-3 mb-2">
       <div class="form-group">
-        <label for="emailAddress"
-               class="required-star">
-          <b>Email Address</b>
-        </label>
         <input type="email"
                name="email"
+               placeholder="Email"
                class="form-control"
                id="emailAddress"
                [(ngModel)]="editor.email">
       </div>
       <div class="form-group">
-        <label for="password"
-               class="required-star">
-          <b>Password</b>
-        </label>
         <input type="password"
                name="password"
                class="form-control"
                id="password"
+               placeholder="Password"
                [(ngModel)]="editor.password">
       </div>
       <div>
         <button type="button"
                 class="w-100 btn btn-primary"
                 [disabled]="loading"
-                (click)="login()">Login</button>
+                (click)="login()">Log In</button>
         <button type="button"
-                class="btn btn-link pt-3"
+                class="btn btn-link pt-3 login-link text-left"
                 [disabled]="loading"
                 (click)="routeForgottenPassword()">Forgotten password?</button>
         <button type="button"
-                class="btn btn-link pt-3 text-right"
+                class="btn btn-link pt-1 pt-sm-3 login-link text-right"
                 (click)="routeRegister()"
                 [disabled]="loading">Don't have an account?
         </button>

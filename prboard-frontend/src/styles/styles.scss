@@ -132,6 +132,14 @@ input[type=number] {
   }
 }
 
+.prboard-logo-img-medium {
+  width: 160px;
+
+  @media (min-width: 576px) {
+    width: 200px;
+  }
+}
+
 .prboard-username-top {
   margin-top: 1.7px; margin-left: 1.5rem; margin-right: 1rem;
 
