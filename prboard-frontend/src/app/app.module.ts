@@ -8,15 +8,15 @@ import { APP_CONFIG } from './shared/models/configuration.models';
 import { AppConfig } from './app.config';
 import { AuthInterceptor } from './shared/services/auth-interceptor/auth-interceptor.service';
 import { FormsModule } from '@angular/forms';
-import { MainModule } from './main/main.module';
 import { SharedModule } from './shared/shared.module';
 import { ProfileModule } from './profile/profile.module';
-import { CheckOutModule } from './check-out/check-out.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { getErrorHandler } from './sentry-error-handler';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { ReposModule } from './repos/repos.module';
+import { PlanModule } from './plan/plan.module';
+import { GitAccountModule } from './git-accounts/git-account.module';
 
 @NgModule({
   declarations: [
@@ -28,13 +28,13 @@ import { ReposModule } from './repos/repos.module';
     AppRoutingModule,
     SecurityModule,
     ProfileModule,
-    MainModule,
+    GitAccountModule,
     HttpClientModule,
     SharedModule,
-    CheckOutModule,
     FontAwesomeModule,
     NgSelectModule,
-    ReposModule
+    ReposModule,
+    PlanModule
   ],
   providers: [
     { provide: APP_CONFIG, useClass: AppConfig },

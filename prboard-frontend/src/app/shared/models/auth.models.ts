@@ -67,12 +67,6 @@ export interface IAuthenticationResponse {
     uuid: string;
 }
 
-export class UserStats {
-    eventsWon: number;
-    eventsAttended: number;
-    winningsEarned: number;
-}
-
 export class TotalUserCredit {
     userUuid: string;
     creditInPence: number;

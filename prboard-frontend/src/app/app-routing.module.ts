@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SecurityModule } from './security/security.module';
 import { ProfileModule } from './profile/profile.module';
-import { CheckOutModule } from './check-out/check-out.module';
-import { MainComponent } from './main/main.component';
-import { ConnectedGitAccountsComponent } from './main/components/connected-git-accounts/connected-git-accounts.component';
-import { MainModule } from './main/main.module';
 import { ReposModule } from './repos/repos.module';
+import { PlanModule } from './plan/plan.module';
+import { PrListComponent } from './git-accounts/components/pr-list/pr-list.component';
+import { GitAccountModule } from './git-accounts/git-account.module';
 
 const routes: Routes = [
   {
-    path: '', component: MainComponent
+    path: '', component: PrListComponent
   },
   {
     path: 'security',
@@ -21,16 +20,16 @@ const routes: Routes = [
     loadChildren: () => ProfileModule
   },
   {
-    path: 'purchase',
-    loadChildren: () => CheckOutModule
-  },
-  {
     path: 'connected',
-    loadChildren: () => MainModule
+    loadChildren: () => GitAccountModule
   },
   {
     path: 'repos',
     loadChildren: () => ReposModule
+  },
+  {
+    path: 'plans',
+    loadChildren: () => PlanModule
   }
 ];
 
