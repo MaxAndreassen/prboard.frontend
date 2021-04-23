@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AssetRowComponent } from './components/asset-row/asset-row.component';
 import { PrCardComponent } from './components/pr-card/pr-card.component';
 import { ConnectedAccountCardComponent } from './components/connected-account-card/connected-account-card.component';
+import { RepoCardComponent } from './components/repo-card/repo-card.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { ConnectedAccountCardComponent } from './components/connected-account-ca
     SearchBoxComponent,
     AssetRowComponent,
     PrCardComponent,
-    ConnectedAccountCardComponent
+    ConnectedAccountCardComponent,
+    RepoCardComponent
   ],
   exports: [
     CardComponent,
@@ -41,7 +43,8 @@ import { ConnectedAccountCardComponent } from './components/connected-account-ca
     SearchBoxComponent,
     AssetRowComponent,
     PrCardComponent,
-    ConnectedAccountCardComponent
+    ConnectedAccountCardComponent,
+    RepoCardComponent
   ]
 })
 export class SharedModule { }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG, IAppConfig } from '../../models/configuration.models';
-import { GitAccount } from '../../models/git-account.models';
+import { GitAccount, GitRepo } from '../../models/git-account.models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,10 @@ export class ConnectAccountService {
   listAccounts(): Observable<GitAccount[]> {
     const url = `${this.config.apiUrl}connect/accounts`;
     return this.http.get<GitAccount[]>(url);
+  }
+
+  listRepos(): Observable<GitRepo[]> {
+    const url = `${this.config.apiUrl}connect/repos`;
+    return this.http.get<GitRepo[]>(url);
   }
 }

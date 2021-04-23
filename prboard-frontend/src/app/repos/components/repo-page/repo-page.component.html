@@ -1,0 +1,23 @@
+<!--<div class="mb-3">
+    <app-pr-card></app-pr-card>
+  </div>
+  <div class="mb-3">
+    <app-pr-card></app-pr-card>
+  </div>-->
+<app-loading-spinner invertColours="true"
+                     *ngIf="connectedReposLoading"></app-loading-spinner>
+<div class="bg-white p-4"
+     *ngIf="!connectedReposLoading && !connectedRepos?.length"
+     style="border-radius: 8px;">
+  <h5 class="text-center mt-2">Connect Your First Git Account With Repos To Get Started</h5>
+  <button class="mx-auto d-block btn btn-primary mt-3"
+          (click)="routeConnect()">
+    Manage Git Accounts
+  </button>
+</div>
+<div *ngFor="let repo of connectedRepos">
+  <div class="mt-2"
+       *ngIf="!connectedReposLoading && !!connectedRepos?.length">
+    <app-repo-card [repo]="repo"></app-repo-card>
+  </div>
+</div>

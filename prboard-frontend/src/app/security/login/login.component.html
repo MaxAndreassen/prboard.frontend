@@ -1,7 +1,9 @@
-<div class="pt-4 pt-md-4" style="margin-bottom: 400px">
+<div class="pt-4 pt-md-4"
+     style="margin-bottom: 400px">
   <img src="assets/logo-white.png"
-  class="prboard-logo-img-medium mx-auto d-block mt-1 mt-sm-3 mb-4 mb-sm-1">
-  <div class="card mobile-login px-2 pt-2 pb-1" style="border-radius: 8px;">
+       class="prboard-logo-img-medium mx-auto d-block mt-1 mt-sm-3 mb-4 mb-sm-1">
+  <div class="card mobile-login px-2 pt-2 pb-1"
+       style="border-radius: 8px;">
     <div *ngIf="newPassword"
          class="alert alert-success mt-3 mx-3"
          role="alert">
@@ -29,6 +31,11 @@
                 class="w-100 btn btn-primary"
                 [disabled]="loading"
                 (click)="login()">Log In</button>
+        <button type="button"
+                class="w-100 btn btn-secondary mt-2"
+                [disabled]="loading"><img src="assets/git_sources/github-light.png"
+                class="mr-2" style="width: 23px;
+                margin-top: -4px;">Log In with GitHub</button>
         <button type="button"
                 class="btn btn-link pt-3 login-link text-left"
                 [disabled]="loading"

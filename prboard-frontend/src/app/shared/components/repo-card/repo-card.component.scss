@@ -1,0 +1,69 @@
+@import '_variables';
+@import '_bootstrap.mixins';
+
+.repo-text {
+  margin-top: 0.5px;
+  font-size: 14px;
+
+  @media (min-width: 576px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+}
+
+.merge-box {
+    background-color: #efefef;
+    border: 1px solid #d8d6d6;
+    border-radius: 4px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.45rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.merge-text {
+    @media (max-width: 576px) {
+        font-size: 12px;
+      }
+}
+
+.merge-arrow-wrapper {
+    @media (max-width: 576px) {
+        margin-top: -2px !important;
+      }
+}
+
+.merge-arrow {
+    font-size: 11px;
+
+    @media (min-width: 576px) {
+        font-size: 12px;
+      }
+}
+
+.git-source-image {
+    width: 33.19px;
+    height: 33.19px;
+    border-radius: 20px;
+}
+
+.pr-card-container {
+  @media (min-width: 576px) {
+      min-height: 70px;
+    }
+}
+
+.tag {
+  border: 1px solid #d8d8d8;
+  display: inline-flex;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  border-radius: 50px;
+}
+
+.profile-img {
+    width: 42.05px;
+    height: 42.05px;
+    border-radius: 40px;
+}
+  

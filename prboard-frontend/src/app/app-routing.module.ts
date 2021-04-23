@@ -6,6 +6,7 @@ import { CheckOutModule } from './check-out/check-out.module';
 import { MainComponent } from './main/main.component';
 import { ConnectedGitAccountsComponent } from './main/components/connected-git-accounts/connected-git-accounts.component';
 import { MainModule } from './main/main.module';
+import { ReposModule } from './repos/repos.module';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'connected',
     loadChildren: () => MainModule
+  },
+  {
+    path: 'repos',
+    loadChildren: () => ReposModule
   }
 ];
 

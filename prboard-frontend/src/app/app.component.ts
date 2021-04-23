@@ -75,4 +75,8 @@ export class AppComponent implements OnInit {
   routeHome(): any {
     this.router.navigateByUrl('/');
   }
+
+  routeRepo(): any {
+    this.router.navigateByUrl('/repos');
+  }
 }

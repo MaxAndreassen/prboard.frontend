@@ -16,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { getErrorHandler } from './sentry-error-handler';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { ReposModule } from './repos/repos.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {NgxImageCompressService} from 'ngx-image-compress';
     SharedModule,
     CheckOutModule,
     FontAwesomeModule,
-    NgSelectModule
+    NgSelectModule,
+    ReposModule
   ],
   providers: [
     { provide: APP_CONFIG, useClass: AppConfig },

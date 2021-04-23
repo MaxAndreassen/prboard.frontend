@@ -7,3 +7,14 @@ export class GitAccount {
     username: string;
     source: string;
 }
+
+export class GitRepo {
+    id: string;
+    name: string;
+    ownerName: string;
+    description: string;
+    openIssuesCount: number;
+    source: string;
+    avatarUrl: string;
+}
+
