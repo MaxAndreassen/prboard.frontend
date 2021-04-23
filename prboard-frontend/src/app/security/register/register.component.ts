@@ -7,9 +7,6 @@ import { IValidationResult, ValidationResult } from '../../shared/models/validat
 import { isPlatformServer } from '@angular/common';
 import { CountryService } from '../../shared/services/country/country.service';
 import { CountrySummary } from '../../shared/models/country.models';
-import { UserService } from 'src/app/profile/services/user.service';
-import { MatchUserSummary } from 'src/app/shared/models/match.models';
-import { UserEditor } from 'src/app/profile/models/profile.models';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +32,6 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private countryService: CountryService,
-    private userService: UserService,
     @Inject(PLATFORM_ID) private platformId: any
   ) { }
 

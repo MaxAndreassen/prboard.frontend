@@ -4,7 +4,6 @@ import { ProfileEditorComponent } from './components/profile-editor/profile-edit
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { OpenSellerAccountComponent } from './components/open-seller-account/open-seller-account.component';
 import { VerifyLandingComponent } from './components/verify-landing/verify-landing.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -18,7 +17,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   declarations: [
     ProfileEditorComponent,
-    OpenSellerAccountComponent,
     VerifyLandingComponent
   ]
 })

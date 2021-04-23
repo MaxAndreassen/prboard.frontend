@@ -8,8 +8,6 @@ import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Upload, FileSummary } from '../../../shared/models/file.models';
 import { IValidationResult, ValidationResult } from '../../../shared/models/validation.models';
-import { PaymentService } from 'src/app/shared/services/payment/payment.service';
-import { Account } from 'src/app/shared/models/payment.models';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -35,9 +33,6 @@ export class ProfileEditorComponent implements OnInit {
 
   uploadError = false;
 
-  paymentCheckLoading = false;
-  paymentLinkLoading = false;
-
   securityContext: SecurityContext;
 
   account: Account;
@@ -52,7 +47,6 @@ export class ProfileEditorComponent implements OnInit {
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: any,
     private userService: UserService,
-    private paymentService: PaymentService,
     private router: Router
   ) {
   }
@@ -74,18 +68,6 @@ export class ProfileEditorComponent implements OnInit {
 
     if (!!this.securityContext && !!this.securityContext.user) {
       this.initialPageLoading = true;
-
-      this.paymentCheckLoading = true;
-
-      this.paymentService
-        .getAccount(this.securityContext.user.uuid)
-        .pipe(finalize(() => this.paymentCheckLoading = false))
-        .subscribe(result => {
-          this.account = result;
-
-          this.authService.setPerformAdminCheck(true);
-        });
-
 
       this.userService
         .getUser(this.securityContext.user.uuid)
@@ -126,18 +108,6 @@ export class ProfileEditorComponent implements OnInit {
   logout(): any {
     this.authService.logout();
   }
-
-  paymentOnboarding(): any {
-    this.paymentLinkLoading = true;
-
-    this.paymentService
-      .createAccountLink('seller')
-      .pipe(finalize(() => this.paymentLinkLoading = false))
-      .subscribe(result => {
-        document.location.href = result.url;
-      });
-  }
-
 
   updateProfileImage(uploads: Upload[]): any {
     this.existingProfileImage = [];

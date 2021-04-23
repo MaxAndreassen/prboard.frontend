@@ -8,7 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { RequestOrganiserComponent } from '../profile/components/request-organiser/request-organiser.component';
 
 @NgModule({
   imports: [
@@ -22,8 +21,7 @@ import { RequestOrganiserComponent } from '../profile/components/request-organis
     LoginComponent,
     RegisterComponent,
     ForgottenPasswordComponent,
-    ResetPasswordComponent,
-    RequestOrganiserComponent
+    ResetPasswordComponent
   ]
 })
 export class SecurityModule { }
